@@ -1,14 +1,14 @@
 import { protocoloPorId } from '../dados/protocolos';
 import type { Protocolo } from '../dados/tipos';
-import type { Loja } from './estado';
+import { VELOCIDADES_DISPONIVEIS, type Loja } from './estado';
 import { linhaDoTempo } from './linha-do-tempo';
 
 type OuvinteQuadro = (indice: number, fracao: number) => void;
 
-const DURACAO_PACOTE = 1150;
-const PAUSA_PACOTE = 260;
-const PAUSA_PASSO = 750;
-const PASSO_SEM_PACOTES = 1700;
+const DURACAO_PACOTE = 2800;
+const PAUSA_PACOTE = 650;
+const PAUSA_PASSO = 1900;
+const PASSO_SEM_PACOTES = 3800;
 
 export class Reprodutor {
   private geracao = 0;
@@ -39,21 +39,30 @@ export class Reprodutor {
   }
 
   private animar(indice: number, geracao: number): Promise<boolean> {
-    const duracao = (this.reduzMovimento() ? 200 : DURACAO_PACOTE) / this.loja.atual.velocidade;
-    const inicio = performance.now();
+    const duracao = this.reduzMovimento() ? 200 : DURACAO_PACOTE;
+    let anterior = performance.now();
+    let fracao = 0;
     return new Promise((resolver) => {
       const quadro = (agora: number): void => {
         if (geracao !== this.geracao) {
           resolver(false);
           return;
         }
-        const fracao = Math.min(1, (agora - inicio) / duracao);
+        fracao = Math.min(1, fracao + ((agora - anterior) * this.loja.atual.velocidade) / duracao);
+        anterior = agora;
         for (const ouvinte of this.ouvintes) ouvinte(indice, fracao);
         if (fracao < 1) requestAnimationFrame(quadro);
         else resolver(true);
       };
       requestAnimationFrame(quadro);
     });
+  }
+
+  acelerar(direcao: 1 | -1): void {
+    const lista = VELOCIDADES_DISPONIVEIS;
+    const atual = lista.indexOf(this.loja.atual.velocidade);
+    const proxima = lista[Math.min(lista.length - 1, Math.max(0, (atual === -1 ? 1 : atual) + direcao))];
+    if (proxima !== undefined) this.loja.alterar({ velocidade: proxima });
   }
 
   private parar(): void {

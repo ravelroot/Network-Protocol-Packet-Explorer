@@ -108,6 +108,7 @@ const ATALHOS: readonly (readonly [readonly string[], ChaveTexto])[] = [
   [['→'], 'atalhoPasso'],
   [['←'], 'atalhoVoltar'],
   [['R'], 'atalhoReiniciar'],
+  [['−', '+'], 'atalhoVelocidade'],
   [['V'], 'atalhoVista'],
   [['↑', '↓'], 'atalhoProtocolo'],
   [['Ctrl', 'K'], 'atalhoBuscar'],

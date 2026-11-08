@@ -1,21 +1,80 @@
-MIT License
+Licença de Uso do Ocelo
 
-Copyright (c) 2026 Erik Pimenta
+Copyright (c) 2026 Erik Pimenta. Todos os direitos reservados.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Permissão de uso
+Qualquer pessoa pode acessar e usar o Ocelo na versão publicada pelo autor
+(https://ravelroot.github.io/Network-Protocol-Packet-Explorer/), para fins
+pessoais, educacionais ou profissionais, sem custo.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. O que não é permitido
+Sem autorização prévia e por escrito do autor, não é permitido:
+  a) copiar ou reproduzir o código-fonte, no todo ou em parte;
+  b) modificar, adaptar, traduzir ou criar obras derivadas;
+  c) distribuir, publicar, hospedar em outro endereço, sublicenciar,
+     vender ou alugar o software ou qualquer parte dele;
+  d) reutilizar em outros projetos os textos, os dados dos protocolos,
+     os desenhos, as animações, o nome "Ocelo" ou a logo;
+  e) remover ou alterar este aviso de direitos.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+3. Plataforma GitHub
+Esta licença não restringe os direitos de visualizar o repositório e de
+criar forks dentro do próprio GitHub que os Termos de Serviço do GitHub
+concedem aos seus usuários. Nenhum outro direito é concedido por esses
+forks.
+
+4. Componentes de terceiros
+As fontes e as ferramentas de terceiros usadas pelo projeto continuam
+regidas pelas próprias licenças, listadas no README.
+
+5. Garantia e responsabilidade
+O software é fornecido "no estado em que se encontra", sem garantia de
+qualquer tipo. Em nenhuma hipótese o autor responde por danos decorrentes
+do uso ou da impossibilidade de uso do software.
+
+6. Encerramento
+Qualquer uso em desacordo com esta licença encerra automaticamente a
+permissão concedida no item 1.
+
+Pedidos de autorização: pelo perfil ravelroot no GitHub.
+
+---
+
+Ocelo Use License
+
+Copyright (c) 2026 Erik Pimenta. All rights reserved.
+
+1. Permission to use
+Anyone may access and use Ocelo as published by the author
+(https://ravelroot.github.io/Network-Protocol-Packet-Explorer/), for
+personal, educational or professional purposes, free of charge.
+
+2. What is not permitted
+Without the author's prior written permission, you may not:
+  a) copy or reproduce the source code, in whole or in part;
+  b) modify, adapt, translate or create derivative works;
+  c) distribute, publish, host at another address, sublicense, sell or
+     rent the software or any part of it;
+  d) reuse in other projects the texts, the protocol data, the drawings,
+     the animations, the name "Ocelo" or the logo;
+  e) remove or alter this rights notice.
+
+3. GitHub platform
+This license does not restrict the rights to view the repository and to
+fork it within GitHub that the GitHub Terms of Service grant to its users.
+No other rights are granted by such forks.
+
+4. Third-party components
+The fonts and third-party tools used by the project remain under their
+own licenses, listed in the README.
+
+5. Warranty and liability
+The software is provided "as is", without warranty of any kind. In no
+event shall the author be liable for any damages arising from the use of,
+or the inability to use, the software.
+
+6. Termination
+Any use that does not comply with this license automatically terminates
+the permission granted in section 1.
+
+Permission requests: through the ravelroot profile on GitHub.

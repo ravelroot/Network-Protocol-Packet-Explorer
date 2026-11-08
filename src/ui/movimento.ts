@@ -16,7 +16,7 @@ export interface Percurso {
   readonly trechos: readonly Trecho[];
 }
 
-const PARADA = 0.07;
+const PARADA = 0.1;
 
 export const planejar = (pontos: readonly Ponto[]): Percurso => {
   const comprimentos = pontos.slice(1).map((p, i) => {
@@ -24,7 +24,7 @@ export const planejar = (pontos: readonly Ponto[]): Percurso => {
     return Math.max(1, Math.hypot(p[0] - a[0], p[1] - a[1]));
   });
   const paradas = Math.max(0, comprimentos.length - 1);
-  const parada = Math.min(PARADA, 0.24 / Math.max(1, paradas));
+  const parada = Math.min(PARADA, 0.3 / Math.max(1, paradas));
   const viagem = 1 - parada * paradas;
   const total = comprimentos.reduce((a, b) => a + b, 0);
   const trechos: Trecho[] = [];

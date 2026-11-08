@@ -1,9 +1,9 @@
 {
   "name": "ocelo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Explorador visual de protocolos da internet, passo a passo e byte a byte.",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "engines": {
     "node": ">=22"

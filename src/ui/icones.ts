@@ -21,7 +21,6 @@ const CAMINHOS = {
   fechar: ['M6 6l12 12', 'M18 6 6 18'],
   reiniciar: ['M3 12a9 9 0 1 0 3-6.7', 'M3 4v5h5'],
   check: ['m5 12 4.5 4.5L19 7'],
-  paleta: ['M12 21a9 9 0 1 1 9-9c0 2.2-1.8 3-3.5 3H15a2 2 0 0 0-1.5 3.3c.5.6.4 1.7-.4 2.2-.4.3-.7.5-1.1.5Z', 'M7.5 11.5h.01', 'M10.5 7.5h.01', 'M15 8h.01'],
 } as const;
 
 export type NomeIcone = keyof typeof CAMINHOS | 'tocar' | 'pausar';

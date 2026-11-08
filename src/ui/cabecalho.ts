@@ -3,7 +3,6 @@ import type { Camada } from '../dados/tipos';
 import { nomeCamada, ui } from '../i18n/textos';
 import { MARCA } from '../marca';
 import { h, trocar } from './dom';
-import { PALETAS } from '../app/paletas';
 import { icone, letreiro, logotipo } from './icones';
 
 const CAMADAS: readonly Camada[] = [1, 2, 3, 4, 5, 6, 7];
@@ -33,67 +32,6 @@ export const montarCabecalho = (ctx: Contexto): HTMLElement => {
   const siglaIdioma = h('span', {});
   const idioma = h('button', { class: 'idioma', type: 'button', onclick: () => loja.alterar({ idioma: loja.atual.idioma === 'pt' ? 'en' : 'pt' }) }, icone('globo'), siglaIdioma);
   const tema = h('button', { class: 'botao-icone tema', type: 'button', onclick: () => loja.alterar({ tema: loja.atual.tema === 'escuro' ? 'claro' : 'escuro' }) });
-  const menuPaletas = h('div', { class: 'menu-paletas', role: 'menu', hidden: true });
-  const botaoPaleta = h('button', {
-    class: 'botao-icone',
-    type: 'button',
-    'aria-haspopup': 'menu',
-    'aria-expanded': 'false',
-    onclick: (ev: Event) => {
-      ev.stopPropagation();
-      alternarMenu(menuPaletas.hidden === true);
-    },
-  }, icone('paleta'));
-  const alternarMenu = (abrir: boolean): void => {
-    menuPaletas.hidden = !abrir;
-    botaoPaleta.setAttribute('aria-expanded', String(abrir));
-    if (abrir) menuPaletas.querySelector<HTMLElement>('[aria-checked="true"]')?.focus();
-  };
-  document.addEventListener('click', (ev) => {
-    if (!menuPaletas.hidden && !menuPaletas.contains(ev.target as Node)) alternarMenu(false);
-  });
-  menuPaletas.addEventListener('keydown', (ev) => {
-    const itens = [...menuPaletas.querySelectorAll<HTMLElement>('[role="menuitemradio"]')];
-    const i = itens.indexOf(document.activeElement as HTMLElement);
-    if (ev.key === 'Escape') {
-      ev.stopPropagation();
-      alternarMenu(false);
-      botaoPaleta.focus();
-    } else if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
-      ev.preventDefault();
-      itens[(i + (ev.key === 'ArrowDown' ? 1 : -1) + itens.length) % itens.length]?.focus();
-    }
-  });
-  const desenharPaletas = (): void => {
-    trocar(
-      menuPaletas,
-      h('div', { class: 'menu-titulo' }, ui('paleta')),
-      ...PALETAS.map((p, i) => {
-        const amostras = h('span', { class: 'amostras' }, ...p.cores.map((cor) => {
-          const a = h('span', { class: 'amostra' });
-          a.style.background = cor;
-          return a;
-        }));
-        return h(
-          'button',
-          {
-            class: 'menu-item',
-            type: 'button',
-            role: 'menuitemradio',
-            'aria-checked': String(loja.atual.paleta === p.id),
-            'aria-label': `${ui('paleta')} ${i + 1}`,
-            title: `${ui('paleta')} ${i + 1}`,
-            onclick: () => {
-              loja.alterar({ paleta: p.id });
-              alternarMenu(false);
-            },
-          },
-          amostras,
-          h('span', { class: 'menu-marca' }, loja.atual.paleta === p.id ? icone('check', 'icone mini') : null),
-        );
-      }),
-    );
-  };
   const slogan = h('small', { class: 'marca-slogan' });
 
   const cabecalho = h(
@@ -106,7 +44,6 @@ export const montarCabecalho = (ctx: Contexto): HTMLElement => {
     h('div', { class: 'grupo-icones' }, alternadores.lista, alternadores.fluxo, alternadores.foco, alternadores.ajuda),
     credito,
     idioma,
-    h('div', { class: 'grupo-paleta' }, botaoPaleta, menuPaletas),
     tema,
   );
 
@@ -141,14 +78,11 @@ export const montarCabecalho = (ctx: Contexto): HTMLElement => {
     trocar(tema, icone(e.tema === 'escuro' ? 'lua' : 'sol'));
     tema.setAttribute('aria-label', ui('tema'));
     tema.title = ui('tema');
-    botaoPaleta.setAttribute('aria-label', ui('paleta'));
-    botaoPaleta.title = ui('paleta');
-    desenharPaletas();
   };
 
   atualizar();
   loja.assinar((e, a) => {
-    if (e.idioma !== a.idioma || e.protocoloId !== a.protocoloId || e.camada !== a.camada || e.tema !== a.tema || e.paleta !== a.paleta || e.lista !== a.lista || e.fluxo !== a.fluxo || e.foco !== a.foco || e.ajuda !== a.ajuda) {
+    if (e.idioma !== a.idioma || e.protocoloId !== a.protocoloId || e.camada !== a.camada || e.tema !== a.tema || e.lista !== a.lista || e.fluxo !== a.fluxo || e.foco !== a.foco || e.ajuda !== a.ajuda) {
       atualizar();
     }
   });

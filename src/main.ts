@@ -30,7 +30,6 @@ definirIdioma(loja.atual.idioma);
 
 const aplicarTema = (): void => {
   document.documentElement.dataset.tema = loja.atual.tema;
-  document.documentElement.dataset.paleta = loja.atual.paleta;
   document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', loja.atual.tema === 'escuro' ? 'dark' : 'light');
 };
 aplicarTema();
@@ -40,7 +39,7 @@ loja.assinar((e, a) => {
     definirIdioma(e.idioma);
     document.title = `${document.title.split(' · ')[0]} · ${e.idioma === 'pt' ? 'Explorador de protocolos' : 'Protocol explorer'}`;
   }
-  if (e.tema !== a.tema || e.paleta !== a.paleta) aplicarTema();
+  if (e.tema !== a.tema) aplicarTema();
   if (e.lista !== a.lista || e.fluxo !== a.fluxo || e.foco !== a.foco) aplicarLayout();
   if (e.tocando !== a.tocando) document.documentElement.dataset.tocando = String(e.tocando);
 });
@@ -91,6 +90,10 @@ document.addEventListener('keydown', (ev) => {
     ArrowDown: () => vizinho(1),
     ArrowUp: () => vizinho(-1),
     r: () => reprodutor.reiniciar(),
+    '+': () => reprodutor.acelerar(1),
+    '=': () => reprodutor.acelerar(1),
+    '-': () => reprodutor.acelerar(-1),
+    _: () => reprodutor.acelerar(-1),
     v: () => loja.alterar({ vista: e.vista === 'rede' ? 'sequencia' : 'rede' }),
     '/': () => loja.alterar({ busca: true }),
     '[': () => loja.alterar({ lista: !e.lista, foco: false }),

@@ -9,11 +9,11 @@ export const montarFluxo = (ctx: Contexto): HTMLElement => {
   const { loja, reprodutor } = ctx;
   const titulo = h('h2', { class: 'titulo-secao' });
   const legenda = h('div', { class: 'legenda' });
-  const velocidade = h(
-    'select',
-    { class: 'velocidade', onchange: (ev: Event) => loja.alterar({ velocidade: Number((ev.target as HTMLSelectElement).value) }) },
-    ...VELOCIDADES_DISPONIVEIS.map((v) => h('option', { value: v }, `${v}×`)),
+  const rotuloVelocidade = h('span', { class: 'velocidade-rotulo' });
+  const botoesVelocidade = VELOCIDADES_DISPONIVEIS.map((v) =>
+    h('button', { class: 'velocidade-opcao', type: 'button', role: 'radio', 'data-valor': v, onclick: () => loja.alterar({ velocidade: v }) }, `${String(v).replace('.', ',')}×`),
   );
+  const velocidade = h('div', { class: 'velocidade', role: 'radiogroup' }, rotuloVelocidade, ...botoesVelocidade);
   const voltar = h('button', { class: 'botao-icone', type: 'button', onclick: () => reprodutor.voltarPasso() }, icone('esquerda'));
   const tocar = h('button', { class: 'botao-primario', type: 'button', onclick: () => reprodutor.alternar() });
   const passo = h('button', { class: 'botao-texto', type: 'button', onclick: () => reprodutor.avancarPasso() });
@@ -30,8 +30,14 @@ export const montarFluxo = (ctx: Contexto): HTMLElement => {
 
   const desenharControles = (): void => {
     const e = loja.atual;
-    velocidade.value = String(e.velocidade);
+    rotuloVelocidade.textContent = ui('velocidade');
     velocidade.setAttribute('aria-label', ui('velocidade'));
+    velocidade.title = ui('atalhoVelocidade');
+    for (const b of botoesVelocidade) {
+      const ativo = Number(b.dataset.valor) === e.velocidade;
+      b.setAttribute('aria-checked', String(ativo));
+      b.classList.toggle('ativo', ativo);
+    }
     voltar.setAttribute('aria-label', ui('voltar'));
     voltar.title = ui('voltar');
     trocar(tocar, icone(e.tocando ? 'pausar' : 'tocar'), e.tocando ? ui('pausar') : ui('tocar'));

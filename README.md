@@ -5,8 +5,8 @@
 <h1 align="center">Ocelo<br><sub><sup><sup><sub>Copyright (©) 2026 Erik Pimenta</sub></sup></sup></sub></h1>
 
 <p align="center">
-  Explorador visual de 33 protocolos da internet, do HTTP ao Modbus. Cada protocolo é contado passo a passo, com a topologia de rede animada salto a salto, o diagrama de sequência entre as pontas, o fluxo de pacotes no estilo do Wireshark e um inspetor que abre cada quadro byte a byte, com Ethernet, IP, TCP ou UDP e a camada de aplicação montados de verdade, checksums inclusos. São 177 passos e 432 pacotes, em português e inglês, com tema claro e escuro, duas paletas de cores (a do Bento, padrão, e a do Nexo), busca, atalhos de teclado e modo foco. Roda inteiro no navegador, sem servidor e sem dependências em produção.<br>
-  Pronto para usar, estudar ou adaptar.
+  Explorador visual de 33 protocolos da internet, do HTTP ao Modbus. Cada protocolo é contado passo a passo, com a topologia de rede animada salto a salto, o diagrama de sequência entre as pontas, o fluxo de pacotes no estilo do Wireshark e um inspetor que abre cada quadro byte a byte, com Ethernet, IP, TCP ou UDP e a camada de aplicação montados de verdade, checksums inclusos. São 177 passos e 432 pacotes, em português e inglês, com tema claro e escuro na paleta do Bento, controle de velocidade, busca, atalhos de teclado e modo foco. Roda inteiro no navegador, sem servidor e sem dependências em produção.<br>
+  Pronto para usar no navegador.
 </p>
 
 <p align="center">
@@ -37,9 +37,9 @@
 - **Fluxo de pacotes:** a tabela no estilo do Wireshark mostra número, tempo, origem, destino, protocolo, informação e tamanho de cada pacote assim que ele entra no fio, com legenda de cores, observações e os pacotes perdidos marcados.
 - **Inspetor byte a byte:** um clique em qualquer pacote abre o quadro inteiro, com a barra de camadas proporcional ao tamanho, a árvore de campos com o valor e a explicação de cada um e o dump hexadecimal com ASCII. Passar o mouse num campo acende os bytes dele, e passar num byte acende o campo. Valores que mudam em toda captura levam o selo "ex." e bytes cifrados ou aleatórios aparecem como "··".
 - **Quadros de verdade:** o motor monta Ethernet II, 802.11 com LLC/SNAP, ARP, EAPOL, IPv4, IPv6, TCP (com opções no SYN e SACK), UDP, ICMP e ICMPv6 com os checksums corretos, e a consulta DNS do HTTP sai com os mesmos 75 bytes de uma captura real.
-- **Reprodução:** tocar e pausar, avançar e voltar um passo, reiniciar e quatro velocidades (0,5×, 1×, 2× e 4×). Um clique num passo da lista leva direto ao fim dele.
+- **Reprodução no ritmo de aula:** a animação começa devagar, para dar tempo de acompanhar cada pacote. O controle de velocidade no fluxo de pacotes vai de 0,5× a 3× com um clique (ou `−` e `+` no teclado) e vale na hora, até no meio de um pacote. Tocar e pausar, avançar e voltar um passo e reiniciar ficam ao lado. Um clique num passo da lista leva direto ao fim dele.
 - **Busca e atalhos:** `Ctrl` + `K` ou `/` abre a busca por sigla ou nome, nas duas línguas. `Espaço` toca, as setas mudam de passo e de protocolo e `?` mostra todos os atalhos.
-- **Idiomas, temas e paletas:** português e inglês em todo o conteúdo, tema claro e escuro e duas paletas de cores, escolhidas pelas amostras no menu de paleta: a do Bento (padrão) e a do Nexo. A escolha fica salva no navegador.
+- **Idiomas e temas:** português e inglês em todo o conteúdo e tema claro e escuro, na paleta do Bento. A escolha fica salva no navegador.
 - **Modo foco e painéis:** a lista e o fluxo de pacotes podem ser escondidos e o modo foco deixa só a animação na tela. O layout se reorganiza no tablet e no celular.
 - **Endereço por protocolo:** cada protocolo tem o próprio link (por exemplo, `#/dns`), bom para compartilhar ou usar em aula.
 
@@ -55,17 +55,12 @@
 
 <p align="center">
   <img src="docs/images/tela-claro.png" width="49%" alt="Wi-Fi no tema claro com os quadros 802.11 no fluxo de pacotes">
-  <img src="docs/images/tela-paletas.png" width="49%" alt="Menu de paletas aberto com as duas amostras, na paleta do Nexo em tema claro">
-</p>
-
-<p align="center">
-  <img src="docs/images/tela-nexo.png" width="49%" alt="BGP na paleta do Nexo, tema escuro">
   <img src="docs/images/tela-inspetor-wifi.png" width="49%" alt="Inspetor de um quadro 802.11 do WPA3 no tema claro">
 </p>
 
 <p align="center">
   <img src="docs/images/tela-busca.png" width="49%" alt="Busca de protocolos aberta com Ctrl + K">
-  <img src="docs/images/tela-atalhos.png" width="49%" alt="Folha de atalhos de teclado na paleta Nexo">
+  <img src="docs/images/tela-atalhos.png" width="49%" alt="Folha de atalhos de teclado">
 </p>
 
 ## Arquitetura
@@ -88,10 +83,10 @@ flowchart LR
 | `src/dados/base.ts`, `conversa.ts`, `fluxo-tcp.ts` | Ajudantes para textos bilíngues, nós padrão, aperto de mão TCP, conversas com seq/ack calculados e campos em hex ou texto |
 | `src/rede/quadros.ts` | Monta os bytes de cada pacote, calcula os checksums e descreve cada campo com valor e explicação |
 | `src/rede/rotas.ts` | Encontra o caminho entre dois nós pela topologia (busca em largura) |
-| `src/app` | Estado da aplicação, linha do tempo, reprodutor e paletas |
+| `src/app` | Estado da aplicação, linha do tempo e reprodutor |
 | `src/ui` | Cabeçalho, lista, palco (rede, sequência e inspetor), painel, fluxo de pacotes, busca, atalhos, ícones e desenhos isométricos |
 | `src/i18n/textos.ts` | Textos da interface em português e inglês |
-| `src/css/estilo.css` | Tokens das duas paletas nos temas claro e escuro, layout, componentes, vistas e animações |
+| `src/css/estilo.css` | Tokens da paleta do Bento nos temas claro e escuro, layout, componentes, vistas e animações |
 | `tests/unit` | Catálogo, quadros, checksums, rotas, linha do tempo e validação dos 33 protocolos |
 | `tests/e2e` | Interface de ponta a ponta com Playwright |
 
@@ -105,23 +100,16 @@ Cada pacote descreve só o que é dele: quem envia, quem recebe, as portas, as f
 
 O Ocelo está publicado em **https://ravelroot.github.io/Network-Protocol-Packet-Explorer/**. Não precisa instalar nada.
 
-### Na sua máquina (Node.js 22+)
+### Desenvolvimento (somente o mantenedor)
+
+O código está aberto para leitura, mas copiar, modificar ou redistribuir depende de autorização por escrito (veja a [Licença](#licença)). Para quem mantém o projeto, o fluxo é:
 
 ```bash
-git clone https://github.com/ravelroot/Network-Protocol-Packet-Explorer.git
-cd Network-Protocol-Packet-Explorer
 npm ci
 npm run dev                       # http://localhost:5173
-```
-
-Para gerar a versão de produção e conferir como ela fica publicada:
-
-```bash
 npm run build                     # gera a pasta dist/
 npm run preview                   # http://localhost:4173
 ```
-
-A pasta `dist/` é estática e funciona em qualquer servidor de arquivos ou CDN, inclusive em subpastas, porque os caminhos são relativos.
 
 ### Publicando no GitHub Pages
 
@@ -156,6 +144,7 @@ Os testes unitários conferem o catálogo (33 protocolos, 8 de núcleo, 16 de ap
 | `→` / `←` | Próximo passo / passo anterior |
 | `↓` / `↑` | Próximo protocolo / protocolo anterior |
 | `R` | Reiniciar |
+| `−` / `+` | Mais devagar / mais rápido |
 | `V` | Alternar entre rede e sequência |
 | `Ctrl` + `K` ou `/` | Buscar protocolos |
 | `[` / `]` | Mostrar ou ocultar a lista / o fluxo de pacotes |
@@ -203,19 +192,11 @@ Os testes unitários conferem o catálogo (33 protocolos, 8 de núcleo, 16 de ap
 | [IPsec](https://ravelroot.github.io/Network-Protocol-Packet-Explorer/#/ipsec) | Túneis VPN entre redes | Segurança | 3 · Rede | 5 | 10 | RFC 4301, RFC 4303, RFC 7296 |
 | [Modbus](https://ravelroot.github.io/Network-Protocol-Packet-Explorer/#/modbus) | Controle industrial (OT) | Aplicação | 7 · Aplicação | 5 | 14 | Modbus Application Protocol v1.1b3 |
 
-## Adicionando um protocolo
-
-1. Crie `src/dados/protocolos/<id>.ts` exportando um objeto `Protocolo` (veja `http.ts` como modelo).
-2. Defina os nós com posição no palco (`x` e `y` de 6 a 94 e de 12 a 88), as ligações e as faixas da vista de sequência.
-3. Escreva os passos com título, resumo, descrição e fatos, em português e inglês, e os pacotes de cada passo com o `quadro` (portas, flags e campos da carga).
-4. Inclua o `id` em `ORDEM`, no arquivo `src/dados/protocolos/index.ts`.
-5. Rode `npm test`: a validação aponta qualquer nó, faixa, legenda ou quadro inconsistente.
-
 ## Estrutura de pastas
 
 ```
 src/
-  app/                      estado, reprodutor, linha do tempo e paletas
+  app/                      estado, reprodutor e linha do tempo
   css/                      estilo.css com tokens, layout, componentes e animações
   dados/
     protocolos/             os 33 protocolos e o catálogo
@@ -249,6 +230,6 @@ Os endereços IP usados nos exemplos são de faixas reservadas para documentaç�
 
 ## Licença
 
-Copyright (©) 2026 Erik Pimenta
+Copyright (©) 2026 Erik Pimenta. Todos os direitos reservados.
 
-Este projeto é distribuído sob a licença [MIT](LICENSE). Você pode usar, copiar, modificar e redistribuir o código, inclusive para fins comerciais, desde que mantenha o aviso de copyright e o texto da licença.
+A partir da versão 1.0.1, o Ocelo é distribuído sob uma [licença de uso](LICENSE): qualquer pessoa pode usar a ferramenta publicada, gratuitamente, para estudo, aula ou trabalho. Copiar, modificar, redistribuir, hospedar em outro endereço ou reutilizar o código, os textos, os dados dos protocolos, os desenhos, o nome ou a logo depende de autorização por escrito do autor. Os componentes de terceiros listados acima continuam sob as próprias licenças.
