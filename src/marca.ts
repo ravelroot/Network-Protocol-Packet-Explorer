@@ -1,0 +1,20 @@
+export const MARCA = {
+  nome: 'Ocelo',
+  versao: '1.0.0',
+  repositorio: 'https://github.com/ravelroot/Network-Protocol-Packet-Explorer',
+  autor: 'ravelroot',
+  grade: [
+    '......#####.',
+    '.....##...##',
+    '.....#.....#',
+    '####.#.....#',
+    '####.#.....#',
+    '####.##...##',
+    '#####.#####.',
+    '######......',
+    '##########..',
+    '##########..',
+    '##########..',
+    '##########..',
+  ],
+} as const;
