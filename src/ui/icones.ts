@@ -13,6 +13,7 @@ const CAMINHOS = {
     'M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21',
   ],
   globo: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z', 'M3 12h18', 'M12 3a14 14 0 0 1 0 18', 'M12 3a14 14 0 0 0 0 18'],
+  paleta: ['M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.8-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z', 'M7.5 12.5h.01', 'M9.5 8h.01', 'M14.5 8h.01', 'M17 12h.01'],
   lua: ['M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z'],
   sol: ['M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z', 'M12 2v2', 'M12 20v2', 'm4.9 4.9 1.4 1.4', 'm17.7 17.7 1.4 1.4', 'M2 12h2', 'M20 12h2', 'm4.9 19.1 1.4-1.4', 'm17.7 6.3 1.4-1.4'],
   direita: ['m9 6 6 6-6 6'],
@@ -56,30 +57,6 @@ export const logotipo = (classe = 'logotipo'): SVGSVGElement => {
         x++;
       }
     }
-  });
-  svg.append(s('path', { d: partes.join(''), fill: 'currentColor' }));
-  return svg;
-};
-
-const LETRAS: Record<string, readonly string[]> = {
-  O: ['.###.', '#...#', '#...#', '#...#', '#...#', '#...#', '.###.'],
-  C: ['.####', '#....', '#....', '#....', '#....', '#....', '.####'],
-  E: ['#####', '#....', '#....', '####.', '#....', '#....', '#####'],
-  L: ['#....', '#....', '#....', '#....', '#....', '#....', '#####'],
-};
-
-export const letreiro = (texto: string, classe = 'letreiro'): SVGSVGElement => {
-  const letras = [...texto.toUpperCase()].map((c) => LETRAS[c] ?? LETRAS.O ?? []);
-  const largura = letras.length * 5 + (letras.length - 1) * 2;
-  const svg = s('svg', { class: classe, viewBox: `0 0 ${largura} 7`, 'shape-rendering': 'crispEdges', role: 'img', 'aria-label': texto });
-  const partes: string[] = [];
-  letras.forEach((letra, i) => {
-    const base = i * 7;
-    letra.forEach((linha, y) => {
-      [...linha].forEach((c, x) => {
-        if (c === '#') partes.push(`M${base + x} ${y}h1v1h-1z`);
-      });
-    });
   });
   svg.append(s('path', { d: partes.join(''), fill: 'currentColor' }));
   return svg;

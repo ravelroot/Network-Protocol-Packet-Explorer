@@ -51,16 +51,48 @@ test('busca abre com Ctrl+K e navega para o protocolo escolhido', async ({ page 
 });
 
 test('troca idioma e tema e mantém a escolha', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('./#/http');
   const titulo = page.locator('.lista .titulo-secao');
+  await expect(page.locator('html')).toHaveAttribute('data-tema', 'claro');
   await expect(titulo).toHaveText(/Protocolos da internet/i);
   await page.keyboard.press('l');
   await expect(titulo).toHaveText(/Internet protocols/i);
   await page.keyboard.press('t');
-  await expect(page.locator('html')).toHaveAttribute('data-tema', 'claro');
+  await expect(page.locator('html')).toHaveAttribute('data-tema', 'escuro');
   await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-tema', 'claro');
+  await expect(page.locator('html')).toHaveAttribute('data-tema', 'escuro');
   await expect(titulo).toHaveText(/Internet protocols/i);
+});
+
+test('segue o tema do sistema na primeira visita', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('./#/http');
+  await expect(page.locator('html')).toHaveAttribute('data-tema', 'escuro');
+});
+
+test('troca a paleta pelo menu e pelo teclado e mantém a escolha', async ({ page }) => {
+  await page.goto('./#/http');
+  const raiz = page.locator('html');
+  await expect(raiz).not.toHaveAttribute('data-paleta', /.+/);
+  await page.locator('.cabecalho .paleta').click();
+  await expect(page.locator('.menu .menu-item')).toHaveCount(4);
+  await page.locator('.menu .menu-item', { hasText: 'Sonda' }).click();
+  await expect(raiz).toHaveAttribute('data-paleta', 'sonda');
+  await expect(page.locator('.menu')).toHaveCount(0);
+  await page.locator('body').click({ position: { x: 700, y: 400 } });
+  await page.keyboard.press('c');
+  await expect(raiz).toHaveAttribute('data-paleta', 'nexo');
+  await page.reload();
+  await expect(raiz).toHaveAttribute('data-paleta', 'nexo');
+  await expect(page.locator('.barra-status')).toContainText('Paleta Nexo');
+});
+
+test('mostra a marca e a barra de status', async ({ page }) => {
+  await page.goto('./#/tcp');
+  await expect(page.locator('.marca-nome')).toHaveText('Ocelo');
+  await expect(page.locator('.marca-quadro svg')).toBeVisible();
+  await expect(page.locator('.barra-status')).toContainText('TCP');
 });
 
 test('publica com política de segurança de conteúdo', async ({ page }) => {

@@ -1,11 +1,13 @@
 import type { Camada, Categoria, Idioma } from '../dados/tipos';
+import { ehPaleta, PALETA_PADRAO, temaDoSistema, type Paleta, type Tema } from './aparencia';
 
+export type { Paleta, Tema } from './aparencia';
 export type Vista = 'rede' | 'sequencia';
-export type Tema = 'escuro' | 'claro';
 
 export interface Estado {
   readonly idioma: Idioma;
   readonly tema: Tema;
+  readonly paleta: Paleta;
   readonly filtro: Categoria | 'todos';
   readonly camada: Camada | null;
   readonly protocoloId: string;
@@ -38,6 +40,7 @@ const lerPreferencias = (): Partial<Estado> => {
     const saida: Partial<Record<keyof Estado, unknown>> = {};
     if (dados.idioma === 'pt' || dados.idioma === 'en') saida.idioma = dados.idioma;
     if (dados.tema === 'escuro' || dados.tema === 'claro') saida.tema = dados.tema;
+    if (ehPaleta(dados.paleta)) saida.paleta = dados.paleta;
     if (dados.vista === 'rede' || dados.vista === 'sequencia') saida.vista = dados.vista;
     if (typeof dados.velocidade === 'number' && VELOCIDADES.includes(dados.velocidade)) saida.velocidade = dados.velocidade;
     return saida as Partial<Estado>;
@@ -48,7 +51,7 @@ const lerPreferencias = (): Partial<Estado> => {
 
 const salvarPreferencias = (e: Estado): void => {
   try {
-    localStorage.setItem(CHAVE, JSON.stringify({ idioma: e.idioma, tema: e.tema, vista: e.vista, velocidade: e.velocidade }));
+    localStorage.setItem(CHAVE, JSON.stringify({ idioma: e.idioma, tema: e.tema, paleta: e.paleta, vista: e.vista, velocidade: e.velocidade }));
   } catch {
     return;
   }
@@ -58,7 +61,8 @@ const idiomaDoNavegador = (): Idioma => (navigator.language.toLowerCase().starts
 
 export const criarEstado = (protocoloInicial: string): Estado => ({
   idioma: idiomaDoNavegador(),
-  tema: 'escuro',
+  tema: temaDoSistema(),
+  paleta: PALETA_PADRAO,
   filtro: 'todos',
   camada: null,
   protocoloId: protocoloInicial,
@@ -99,7 +103,7 @@ export class Loja {
     const mudou = (Object.keys(parcial) as (keyof Estado)[]).some((k) => anterior[k] !== proximo[k]);
     if (!mudou) return;
     this.estado = proximo;
-    if (anterior.idioma !== proximo.idioma || anterior.tema !== proximo.tema || anterior.vista !== proximo.vista || anterior.velocidade !== proximo.velocidade) {
+    if (anterior.idioma !== proximo.idioma || anterior.tema !== proximo.tema || anterior.paleta !== proximo.paleta || anterior.vista !== proximo.vista || anterior.velocidade !== proximo.velocidade) {
       salvarPreferencias(proximo);
     }
     for (const ouvinte of this.ouvintes) ouvinte(proximo, anterior);

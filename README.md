@@ -5,7 +5,7 @@
 <h1 align="center">Ocelo<br><sub><sup><sup><sub>Copyright (©) 2026 Erik Pimenta</sub></sup></sup></sub></h1>
 
 <p align="center">
-  Explorador visual de 33 protocolos da internet, do HTTP ao Modbus. Cada protocolo é contado passo a passo, com a topologia de rede animada salto a salto, o diagrama de sequência entre as pontas, o fluxo de pacotes no estilo do Wireshark e um inspetor que abre cada quadro byte a byte, com Ethernet, IP, TCP ou UDP e a camada de aplicação montados de verdade, checksums inclusos. São 177 passos e 432 pacotes, em português e inglês, com tema claro e escuro na paleta do Bento, controle de velocidade, busca, atalhos de teclado e modo foco. Roda inteiro no navegador, sem servidor e sem dependências em produção.<br>
+  Explorador visual de 33 protocolos da internet, do HTTP ao Modbus. Cada protocolo é contado passo a passo, com a topologia de rede animada salto a salto, o diagrama de sequência entre as pontas, o fluxo de pacotes no estilo do Wireshark e um inspetor que abre cada quadro byte a byte, com Ethernet, IP, TCP ou UDP e a camada de aplicação montados de verdade, checksums inclusos. São 177 passos e 432 pacotes, em português e inglês, com tema claro e escuro e quatro paletas de cores (Ocelo, Bento, Sonda e Nexo), controle de velocidade, busca, atalhos de teclado e modo foco. Roda inteiro no navegador, sem servidor e sem dependências em produção.<br>
   Pronto para usar no navegador.
 </p>
 
@@ -23,6 +23,12 @@
 
 > **Banco de dados:** [`Banco-de-Dados-Ocelo.pdf`](Banco-de-Dados-Ocelo.pdf) traz a sugestão de arquitetura para quando o catálogo sair dos arquivos TypeScript e passar para um banco: o diagrama de relacionamentos, todas as tabelas com campos, tipos, chaves e restrições, os índices, as decisões (PostgreSQL, textos bilíngues, quadros em JSONB, versões publicadas), os fluxos de dados, a operação e como escalar (cópia em [`docs/`](docs/Banco-de-Dados-Ocelo.pdf)).
 
+> **Versão 1.1.0 (Atual):** nova identidade visual, no mesmo padrão do Grafo, do Crivo e do Pluma: **logo preta em fundo branco**, **fontes do sistema** (texto e monoespaçada) no lugar das fontes baixadas, a **paleta Ocelo** (linho, vinho, ardósia e palha) como padrão e um **menu de paletas** com Ocelo, Bento, Sonda e Nexo, cada uma com tema claro e escuro. A barra superior ganhou controles segmentados para as camadas OSI, as abas e a velocidade, botões no estilo dos outros projetos e uma **barra de status** com versão, protocolo, camada, vista, velocidade, tema e paleta. O tema agora começa igual ao do sistema e a aparência é aplicada antes de a tela aparecer, sem piscar. Detalhes em [Paletas de cores](#paletas-de-cores).
+
+> **Versão 1.0.1:** o Ocelo passa a ser distribuído sob uma [licença de uso](LICENSE).
+
+> **Versão 1.0.0:** primeira versão, com os 33 protocolos, as vistas de rede e de sequência, o fluxo de pacotes, o inspetor byte a byte, busca, atalhos, português e inglês.
+
 <p align="center">
   <img src="docs/images/tela-visao-geral.png" alt="Visão geral do HTTP: lista de protocolos, topologia de rede, visão geral do protocolo e fluxo de pacotes">
 </p>
@@ -39,29 +45,47 @@
 - **Quadros de verdade:** o motor monta Ethernet II, 802.11 com LLC/SNAP, ARP, EAPOL, IPv4, IPv6, TCP (com opções no SYN e SACK), UDP, ICMP e ICMPv6 com os checksums corretos, e a consulta DNS do HTTP sai com os mesmos 75 bytes de uma captura real.
 - **Reprodução no ritmo de aula:** a animação começa devagar, para dar tempo de acompanhar cada pacote. O controle de velocidade no fluxo de pacotes vai de 0,5× a 3× com um clique (ou `−` e `+` no teclado) e vale na hora, até no meio de um pacote. Tocar e pausar, avançar e voltar um passo e reiniciar ficam ao lado. Um clique num passo da lista leva direto ao fim dele.
 - **Busca e atalhos:** `Ctrl` + `K` ou `/` abre a busca por sigla ou nome, nas duas línguas. `Espaço` toca, as setas mudam de passo e de protocolo e `?` mostra todos os atalhos.
-- **Idiomas e temas:** português e inglês em todo o conteúdo e tema claro e escuro, na paleta do Bento. A escolha fica salva no navegador.
+- **Idiomas, temas e paletas:** português e inglês em todo o conteúdo, tema claro e escuro (a primeira visita segue o tema do sistema) e quatro paletas de cores: Ocelo, Bento, Sonda e Nexo. A escolha fica salva no navegador. Detalhes em [Paletas de cores](#paletas-de-cores).
+- **Barra de status:** no rodapé, a versão, o protocolo e a camada OSI abertos, a vista, a velocidade, o tema e a paleta em uso.
 - **Modo foco e painéis:** a lista e o fluxo de pacotes podem ser escondidos e o modo foco deixa só a animação na tela. O layout se reorganiza no tablet e no celular.
 - **Endereço por protocolo:** cada protocolo tem o próprio link (por exemplo, `#/dns`), bom para compartilhar ou usar em aula.
 
 <p align="center">
   <img src="docs/images/tela-rede.png" width="49%" alt="DNS em reprodução: a consulta viaja do resolvedor até o servidor raiz com rastro e trilho animado">
-  <img src="docs/images/tela-sequencia.png" width="49%" alt="TCP na vista de sequência com o segmento perdido, o ACK duplicado com SACK e a retransmissão">
+  <img src="docs/images/tela-sequencia.png" width="49%" alt="TCP na vista de sequência, no tema escuro, com o segmento perdido, o ACK duplicado com SACK e a retransmissão">
 </p>
 
 <p align="center">
   <img src="docs/images/tela-inspetor.png" width="49%" alt="Inspetor byte a byte da consulta DNS: barra de camadas, campos explicados e dump hexadecimal">
-  <img src="docs/images/tela-passo.png" width="49%" alt="Detalhes do passo do WireGuard com o cartão do pacote e os números do passo">
+  <img src="docs/images/tela-passo.png" width="49%" alt="Detalhes do passo do WireGuard, no tema escuro, com o cartão do pacote e os números do passo">
 </p>
 
 <p align="center">
-  <img src="docs/images/tela-claro.png" width="49%" alt="Wi-Fi no tema claro com os quadros 802.11 no fluxo de pacotes">
-  <img src="docs/images/tela-inspetor-wifi.png" width="49%" alt="Inspetor de um quadro 802.11 do WPA3 no tema claro">
+  <img src="docs/images/tela-claro.png" width="49%" alt="Wi-Fi na paleta Bento, no tema claro, com os quadros 802.11 no fluxo de pacotes">
+  <img src="docs/images/tela-inspetor-wifi.png" width="49%" alt="Inspetor de um quadro 802.11 do WPA3 na paleta Sonda">
 </p>
 
 <p align="center">
   <img src="docs/images/tela-busca.png" width="49%" alt="Busca de protocolos aberta com Ctrl + K">
-  <img src="docs/images/tela-atalhos.png" width="49%" alt="Folha de atalhos de teclado">
+  <img src="docs/images/tela-atalhos.png" width="49%" alt="Folha de atalhos de teclado no tema escuro">
 </p>
+
+## Paletas de cores
+
+<p align="center">
+  <img src="docs/images/tela-paletas.png" alt="O Ocelo nas quatro paletas, Ocelo, Bento, Sonda e Nexo, cada uma no tema claro e no escuro">
+</p>
+
+O botão com o ícone de paleta, no canto superior direito ao lado do botão de tema, abre a lista das paletas com as cores de cada uma (a tecla `C` passa para a próxima). A paleta vale para a interface inteira (barra superior, lista, palco, painel, fluxo de pacotes, inspetor e janelas) e funciona junto com o tema claro ou escuro (tecla `T`).
+
+| Paleta | Origem | Tema claro | Tema escuro |
+|---|---|---|---|
+| **Ocelo** (padrão) | paleta da casa, a mesma do Grafo, do Crivo e do Pluma | linho `#E6DDCE`, vinho `#5D1C16`, ardósia `#A3B4BE`, palha `#F6E4A6` | fundo `#1D1613`, superfície `#30251F`, destaque palha `#F6E4A6` |
+| **Bento** | painel administrativo | névoa `#F5F4F4`, cinza `#BAB7B6`, grafite `#4D4B4B`, tinta `#000000` | fundo `#020202`, superfície `#1E1D1D`, destaque branco `#FFFFFF` |
+| **Sonda** | motor de busca | areia `#F3F1EC`, azul `#7FA7B8`, noite `#17212B`, magenta `#A8235A` | fundo `#0F161B`, superfície `#151E25`, destaque rosa `#F0679A` |
+| **Nexo** | paleta original do Nexo | papel `#E8E8E8`, pó `#D9D1CE`, malva `#AB9D9D`, tinta `#000000` | fundo `#000000`, superfície `#221E1D`, destaque papel `#E8E8E8` |
+
+As cores dos tipos de pacote (núcleo, aplicação, segurança e as cores da legenda) também acompanham cada paleta, com contraste próprio no claro e no escuro. A escolha fica salva neste navegador e é aplicada antes de a tela aparecer, sem piscar, pelo [`public/aparencia.js`](public/aparencia.js). As paletas são variáveis CSS em `:root[data-paleta]` e `:root[data-tema]` no [`src/css/estilo.css`](src/css/estilo.css), e a lista do menu fica em `PALETAS` no [`src/app/aparencia.ts`](src/app/aparencia.ts). A tipografia usa as fontes do próprio sistema, como no Grafo, no Crivo e no Pluma: `system-ui` para o texto e `ui-monospace` para endereços, bytes e tempos.
 
 ## Arquitetura
 
@@ -83,10 +107,10 @@ flowchart LR
 | `src/dados/base.ts`, `conversa.ts`, `fluxo-tcp.ts` | Ajudantes para textos bilíngues, nós padrão, aperto de mão TCP, conversas com seq/ack calculados e campos em hex ou texto |
 | `src/rede/quadros.ts` | Monta os bytes de cada pacote, calcula os checksums e descreve cada campo com valor e explicação |
 | `src/rede/rotas.ts` | Encontra o caminho entre dois nós pela topologia (busca em largura) |
-| `src/app` | Estado da aplicação, linha do tempo e reprodutor |
-| `src/ui` | Cabeçalho, lista, palco (rede, sequência e inspetor), painel, fluxo de pacotes, busca, atalhos, ícones e desenhos isométricos |
+| `src/app` | Estado da aplicação, aparência (tema e paleta), linha do tempo e reprodutor |
+| `src/ui` | Barra superior, menu de paletas, lista, palco (rede, sequência e inspetor), painel, fluxo de pacotes, barra de status, busca, atalhos, ícones e desenhos isométricos |
 | `src/i18n/textos.ts` | Textos da interface em português e inglês |
-| `src/css/estilo.css` | Tokens da paleta do Bento nos temas claro e escuro, layout, componentes, vistas e animações |
+| `src/css/estilo.css` | Tokens das quatro paletas nos temas claro e escuro, layout, componentes, vistas e animações |
 | `tests/unit` | Catálogo, quadros, checksums, rotas, linha do tempo e validação dos 33 protocolos |
 | `tests/e2e` | Interface de ponta a ponta com Playwright |
 
@@ -134,7 +158,7 @@ Os testes unitários conferem o catálogo (33 protocolos, 8 de núcleo, 16 de ap
 - **Política de segurança de conteúdo** no build: só scripts, estilos e fontes do próprio site, sem `eval`, sem objetos e sem formulários.
 - **Nada de HTML montado a partir de texto:** a interface cria cada elemento pelo DOM, então nenhum conteúdo vira código.
 - **Sem servidor, sem cookies e sem rastreadores:** as preferências ficam no `localStorage`, com leitura validada.
-- **Dependências mínimas:** em produção são só as fontes. O Dependabot acompanha npm e GitHub Actions toda semana.
+- **Nenhuma dependência em produção:** a interface usa as fontes do próprio sistema e nada é baixado de fora. O Dependabot acompanha npm e GitHub Actions toda semana.
 
 ## Atalhos de teclado
 
@@ -150,6 +174,7 @@ Os testes unitários conferem o catálogo (33 protocolos, 8 de núcleo, 16 de ap
 | `[` / `]` | Mostrar ou ocultar a lista / o fluxo de pacotes |
 | `F` | Modo foco |
 | `T` | Tema claro ou escuro |
+| `C` | Próxima paleta de cores |
 | `L` | Português ou inglês |
 | `Esc` | Fechar o inspetor ou a janela aberta |
 | `?` | Folha de atalhos |
@@ -205,7 +230,7 @@ src/
   rede/                     motor de quadros e rotas
   ui/                       componentes da interface e desenhos isométricos
   main.ts                   ponto de entrada e atalhos de teclado
-public/                     ícone
+public/                     ícone e aparencia.js (tema e paleta antes da primeira pintura)
 tests/
   unit/                     Vitest
   e2e/                      Playwright
@@ -224,7 +249,6 @@ O Ocelo depende de componentes com licenças próprias, que continuam valendo pa
 | [TypeScript](https://www.typescriptlang.org/) | Linguagem e verificação de tipos | Apache-2.0 |
 | [Vitest](https://vitest.dev/) | Testes unitários | MIT |
 | [Playwright](https://playwright.dev/) | Testes de ponta a ponta | Apache-2.0 |
-| [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) e [IBM Plex Mono](https://www.ibm.com/plex/) via [Fontsource](https://fontsource.org/) | Tipografia | OFL-1.1 |
 
 Os endereços IP usados nos exemplos são de faixas reservadas para documentação (RFC 5737 e RFC 3849) ou de serviços públicos conhecidos, e os domínios seguem a RFC 2606. Os nomes de produtos e marcas citados pertencem aos seus donos.
 

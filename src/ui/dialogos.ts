@@ -115,6 +115,7 @@ const ATALHOS: readonly (readonly [readonly string[], ChaveTexto])[] = [
   [['[', ']'], 'atalhoPaineis'],
   [['F'], 'atalhoFoco'],
   [['T'], 'atalhoTema'],
+  [['C'], 'atalhoPaleta'],
   [['L'], 'atalhoIdioma'],
   [['Esc'], 'atalhoFechar'],
   [['?'], 'atalhoAjuda'],

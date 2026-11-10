@@ -1,8 +1,5 @@
-import '@fontsource-variable/bricolage-grotesque/wdth.css';
-import '@fontsource-variable/instrument-sans/wght.css';
-import '@fontsource/ibm-plex-mono/400.css';
-import '@fontsource/ibm-plex-mono/500.css';
 import './css/estilo.css';
+import { aplicarAparencia, proximaPaleta } from './app/aparencia';
 import type { Contexto } from './app/contexto';
 import { criarEstado, Loja } from './app/estado';
 import { Reprodutor } from './app/reprodutor';
@@ -15,6 +12,7 @@ import { montarFluxo } from './ui/fluxo';
 import { visiveis, montarLista } from './ui/lista';
 import { montarPainel } from './ui/painel';
 import { montarPalco } from './ui/palco';
+import { montarBarraStatus } from './ui/barra-status';
 
 const idDoEndereco = (): string | undefined => {
   const id = decodeURIComponent(location.hash.replace(/^#\/?/, '')).toLowerCase();
@@ -28,10 +26,7 @@ const ctx: Contexto = { loja, reprodutor };
 
 definirIdioma(loja.atual.idioma);
 
-const aplicarTema = (): void => {
-  document.documentElement.dataset.tema = loja.atual.tema;
-  document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', loja.atual.tema === 'escuro' ? 'dark' : 'light');
-};
+const aplicarTema = (): void => aplicarAparencia(loja.atual.tema, loja.atual.paleta);
 aplicarTema();
 
 loja.assinar((e, a) => {
@@ -39,13 +34,13 @@ loja.assinar((e, a) => {
     definirIdioma(e.idioma);
     document.title = `${document.title.split(' · ')[0]} · ${e.idioma === 'pt' ? 'Explorador de protocolos' : 'Protocol explorer'}`;
   }
-  if (e.tema !== a.tema) aplicarTema();
+  if (e.tema !== a.tema || e.paleta !== a.paleta) aplicarTema();
   if (e.lista !== a.lista || e.fluxo !== a.fluxo || e.foco !== a.foco) aplicarLayout();
   if (e.tocando !== a.tocando) document.documentElement.dataset.tocando = String(e.tocando);
 });
 
 const corpo = h('main', { class: 'corpo' }, montarLista(ctx), montarPalco(ctx), montarPainel(ctx), montarFluxo(ctx));
-const app = h('div', { class: 'app' }, montarCabecalho(ctx), corpo, montarBusca(ctx), montarAjuda(ctx));
+const app = h('div', { class: 'app' }, montarCabecalho(ctx), corpo, montarBarraStatus(ctx), montarBusca(ctx), montarAjuda(ctx));
 
 const aplicarLayout = (): void => {
   const e = loja.atual;
@@ -100,6 +95,7 @@ document.addEventListener('keydown', (ev) => {
     ']': () => loja.alterar({ fluxo: !e.fluxo, foco: false }),
     f: () => loja.alterar({ foco: !e.foco }),
     t: () => loja.alterar({ tema: e.tema === 'escuro' ? 'claro' : 'escuro' }),
+    c: () => loja.alterar({ paleta: proximaPaleta(e.paleta) }),
     l: () => loja.alterar({ idioma: e.idioma === 'pt' ? 'en' : 'pt' }),
     '?': () => loja.alterar({ ajuda: true }),
     Escape: () => {
