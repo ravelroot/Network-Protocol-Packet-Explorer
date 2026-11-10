@@ -77,7 +77,8 @@ test('troca a paleta pelo menu e pelo teclado e mantém a escolha', async ({ pag
   await expect(raiz).not.toHaveAttribute('data-paleta', /.+/);
   await page.locator('.cabecalho .paleta').click();
   await expect(page.locator('.menu .menu-item')).toHaveCount(4);
-  await page.locator('.menu .menu-item', { hasText: 'Sonda' }).click();
+  await expect(page.locator('.menu')).toHaveText('');
+  await page.getByRole('menuitemradio', { name: 'Paleta Sonda' }).click();
   await expect(raiz).toHaveAttribute('data-paleta', 'sonda');
   await expect(page.locator('.menu')).toHaveCount(0);
   await page.locator('body').click({ position: { x: 700, y: 400 } });

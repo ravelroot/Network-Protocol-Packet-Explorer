@@ -23,7 +23,9 @@
 
 > **Banco de dados:** [`Banco-de-Dados-Ocelo.pdf`](Banco-de-Dados-Ocelo.pdf) traz a sugestão de arquitetura para quando o catálogo sair dos arquivos TypeScript e passar para um banco: o diagrama de relacionamentos, todas as tabelas com campos, tipos, chaves e restrições, os índices, as decisões (PostgreSQL, textos bilíngues, quadros em JSONB, versões publicadas), os fluxos de dados, a operação e como escalar (cópia em [`docs/`](docs/Banco-de-Dados-Ocelo.pdf)).
 
-> **Versão 1.1.0 (Atual):** nova identidade visual, no mesmo padrão do Grafo, do Crivo e do Pluma: **logo preta em fundo branco**, **fontes do sistema** (texto e monoespaçada) no lugar das fontes baixadas, a **paleta Ocelo** (linho, vinho, ardósia e palha) como padrão e um **menu de paletas** com Ocelo, Bento, Sonda e Nexo, cada uma com tema claro e escuro. A barra superior ganhou controles segmentados para as camadas OSI, as abas e a velocidade, botões no estilo dos outros projetos e uma **barra de status** com versão, protocolo, camada, vista, velocidade, tema e paleta. O tema agora começa igual ao do sistema e a aparência é aplicada antes de a tela aparecer, sem piscar. Detalhes em [Paletas de cores](#paletas-de-cores).
+> **Versão 1.1.1 (Atual):** o **menu de paletas** mostra só as amostras de cor de cada paleta, sem o nome. A paleta em uso continua marcada, a tecla `C` continua passando para a próxima e o nome segue no leitor de tela, na dica do botão e na barra de status. Os protocolos, os passos, os pacotes e as preferências salvas não mudam.
+
+> **Versão 1.1.0:** nova identidade visual, no mesmo padrão do Grafo, do Crivo e do Pluma: **logo preta em fundo branco**, **fontes do sistema** (texto e monoespaçada) no lugar das fontes baixadas, a **paleta Ocelo** (linho, vinho, ardósia e palha) como padrão e um **menu de paletas** com Ocelo, Bento, Sonda e Nexo, cada uma com tema claro e escuro. A barra superior ganhou controles segmentados para as camadas OSI, as abas e a velocidade, botões no estilo dos outros projetos e uma **barra de status** com versão, protocolo, camada, vista, velocidade, tema e paleta. O tema agora começa igual ao do sistema e a aparência é aplicada antes de a tela aparecer, sem piscar. Detalhes em [Paletas de cores](#paletas-de-cores).
 
 > **Versão 1.0.1:** o Ocelo passa a ser distribuído sob uma [licença de uso](LICENSE).
 
@@ -76,7 +78,7 @@
   <img src="docs/images/tela-paletas.png" alt="O Ocelo nas quatro paletas, Ocelo, Bento, Sonda e Nexo, cada uma no tema claro e no escuro">
 </p>
 
-O botão com o ícone de paleta, no canto superior direito ao lado do botão de tema, abre a lista das paletas com as cores de cada uma (a tecla `C` passa para a próxima). A paleta vale para a interface inteira (barra superior, lista, palco, painel, fluxo de pacotes, inspetor e janelas) e funciona junto com o tema claro ou escuro (tecla `T`).
+O botão com o ícone de paleta, no canto superior direito ao lado do botão de tema, abre a lista das paletas, só com as amostras de cor de cada uma (a tecla `C` passa para a próxima; o nome da paleta em uso aparece na dica do botão e na barra de status). A paleta vale para a interface inteira (barra superior, lista, palco, painel, fluxo de pacotes, inspetor e janelas) e funciona junto com o tema claro ou escuro (tecla `T`).
 
 | Paleta | Origem | Tema claro | Tema escuro |
 |---|---|---|---|

@@ -33,6 +33,7 @@ export const abrirMenu = (ancora: HTMLElement, itens: readonly ItemMenu[]): void
         type: 'button',
         role: 'menuitemradio',
         'aria-checked': String(Boolean(item.marcado)),
+        'aria-label': item.cores ? item.rotulo : null,
         onclick: () => {
           fechar();
           item.acao();
@@ -40,11 +41,10 @@ export const abrirMenu = (ancora: HTMLElement, itens: readonly ItemMenu[]): void
         },
       },
       h('span', { class: 'menu-marca' }, item.marcado ? icone('check', 'icone mini') : null),
-      item.cores ? amostras(item.cores) : null,
-      h('span', { class: 'crescer' }, item.rotulo),
+      item.cores ? amostras(item.cores) : h('span', { class: 'crescer' }, item.rotulo),
     ),
   );
-  const menu = h('div', { class: 'menu', role: 'menu' }, ...botoes);
+  const menu = h('div', { class: itens.every((item) => item.cores) ? 'menu menu-amostras' : 'menu', role: 'menu' }, ...botoes);
 
   const foraDoMenu = (ev: PointerEvent): void => {
     const alvo = ev.target as Node | null;
